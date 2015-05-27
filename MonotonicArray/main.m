@@ -1,17 +1,28 @@
-//
-//  main.m
-//  MonotonicArray
-//
-//  Created by Ali Panah on 5/27/15.
-//  Copyright (c) 2015 Ali Panah. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
-int main(int argc, const char * argv[]) {
-  @autoreleasepool {
-      // insert code here...
-      NSLog(@"Hello, World!");
+BOOL isMonotonic(NSArray *numberArray){
+  
+  BOOL goingUp = YES;
+  BOOL goingDown = YES;
+  
+  for (int i=0; (goingUp || goingDown) && i<numberArray.count-1; i++) {
+    if([numberArray[i+1] integerValue]>[numberArray[i] integerValue]){
+      goingDown = NO;
+    }
+    else if([numberArray[i+1] integerValue]<[numberArray[i] integerValue]){
+      goingUp = NO;
+    }
   }
-    return 0;
+  return (goingUp || goingDown);
+}
+
+int main(int argc, const char *argv[]){
+  @autoreleasepool {
+    
+    NSArray *numberArray = @[@0,@1,@3,@7,@9];
+    NSLog(@"Is array monotonic: %@",isMonotonic(numberArray)? @"YES":@"NO");
+    
+  }
+  
+  return 0;
 }
